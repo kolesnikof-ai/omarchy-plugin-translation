@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.kolesnikof-ai.translate",
+  "name": "Translate",
+  "version": "1.0.0",
+  "author": "Sergey Kolesnikov",
+  "license": "MIT",
+  "description": "Translate the selected text (or typed input) with one configured provider: DeepL, Microsoft, Google, Yandex or LibreTranslate.",
+  "kinds": ["panel", "service"],
+  "keepLoaded": true,
+  "entryPoints": {
+    "panel": "Panel.qml",
+    "service": "Service.qml"
+  }
+}

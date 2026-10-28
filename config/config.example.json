@@ -1,0 +1,24 @@
+{
+  "target": "en",
+  "fallback_target": "en",
+  "source": "auto",
+  "provider": "deepl",
+  "keys": {
+    "deepl": "",
+    "microsoft": "",
+    "microsoft_region": "",
+    "google": "",
+    "yandex": "",
+    "libretranslate": ""
+  },
+  "libretranslate_url": "",
+  "deepl_formality": "default",
+  "copy_fallback": false,
+  "ui": {
+    "position": "center",
+    "width": 480,
+    "height": 320,
+    "show_language_switcher": true,
+    "max_variants": 3
+  }
+}
