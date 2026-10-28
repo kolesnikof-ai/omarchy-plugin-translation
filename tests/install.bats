@@ -17,8 +17,6 @@ setup() {
   [ "$(readlink "$OMARCHY_TRANSLATE_BIN_DIR/kolesnikof-translate")" = "$REPO_ROOT/bin/translate" ]
   [ "$(stat -c %a "$OMARCHY_TRANSLATE_CONFIG_DIR/config.json")" = 600 ]
   jq -e . "$OMARCHY_TRANSLATE_CONFIG_DIR/config.json" >/dev/null
-  [[ "$output" == *'o.bind("SUPER + SHIFT + T"'* ]]
-  [[ "$output" == *"omarchy plugin"* ]]
 }
 
 @test "the linked command runs" {

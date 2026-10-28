@@ -76,17 +76,3 @@ case ":$PATH:" in
   *":$BIN_DIR:"*) ;;
   *) echo "Warning: $BIN_DIR is not in PATH; the hotkey will not find $COMMAND" >&2 ;;
 esac
-
-cat <<NEXT
-
-Next steps:
-  1. Put your API key into $CONFIG_DIR/config.json
-     (keys.deepl for the default provider).
-  2. Install and enable the shell plugin:
-       omarchy plugin add <git-url-of-this-repo> --enable
-     or, from a local checkout:
-       ./install.sh --link-plugin && omarchy plugin enable $PLUGIN_ID
-  3. Add the hotkey to ~/.config/hypr/bindings.lua
-     (see $ROOT/config/bindings.example.lua):
-       o.bind("SUPER + SHIFT + T", "Translate selection", "$COMMAND")
-NEXT
