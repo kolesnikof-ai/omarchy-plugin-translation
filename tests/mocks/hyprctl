@@ -15,6 +15,11 @@ case "$1 ${2:-}" in
       :
     elif [[ -f $MOCK_DIR/copy-result ]]; then
       cp "$MOCK_DIR/copy-result" "$MOCK_DIR/clipboard"
+      # The window's copy also becomes the primary selection. Electron does
+      # this when the buffer still held an older highlight.
+      if [[ -f $MOCK_DIR/publish-primary ]]; then
+        cp "$MOCK_DIR/copy-result" "$MOCK_DIR/primary"
+      fi
     elif [[ -f $MOCK_DIR/primary ]]; then
       cp "$MOCK_DIR/primary" "$MOCK_DIR/clipboard"
     fi

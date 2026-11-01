@@ -267,6 +267,17 @@ JSON
   [[ "$(cat "$MOCK_DIR/clipboard")" != kolesnikof-translate-probe-* ]]
 }
 
+@test "a stale primary selection is accepted once the window publishes the copy" {
+  printf 'xdg-old-selection' >"$MOCK_DIR/primary"
+  printf 'Context\nCompaction threshold' >"$MOCK_DIR/copy-result"
+  : >"$MOCK_DIR/publish-primary"
+  deepl_reply "контекст"
+  run "$CLI"
+  [ "$status" -eq 0 ]
+  [ "$(jq_field "$(show_payload 1)" .source_text)" = $'Context\nCompaction threshold' ]
+  [ "$(jq_field "$(show_payload 2)" .state)" = result ]
+}
+
 @test "a copy that is not the primary selection opens input mode" {
   printf 'old word' >"$MOCK_DIR/primary"
   printf 'current line' >"$MOCK_DIR/copy-result"

@@ -145,11 +145,13 @@ selection::capture_copy() {
 # Whitespace-only selections count as empty. Needs TR_CONFIG loaded.
 #
 # The Wayland primary buffer keeps the last highlight after the user clears
-# it. A non-empty buffer is therefore accepted only when the focused window
-# copies that same text. Anything else opens the input field. Without
-# hyprctl the buffer is trusted, because the check cannot be done.
+# it, and Electron often keeps that old highlight until the next copy. A
+# non-empty buffer is accepted when the focused window copies that same text,
+# or when the copy publishes the live selection back into the primary buffer.
+# Anything else opens the input field. Without hyprctl the buffer is trusted,
+# because the check cannot be done.
 selection::read() {
-  local window_info=${1:-} primary copied
+  local window_info=${1:-} primary copied fresh=""
 
   primary=$(selection::primary) || primary=""
   primary=$(tr::trim "$primary")
@@ -163,6 +165,14 @@ selection::read() {
     copied=$(tr::trim "$copied")
     if [[ -n $copied && $copied == "$primary" ]]; then
       printf '%s' "$primary"
+      return 0
+    fi
+    if [[ -n $copied ]]; then
+      fresh=$(selection::primary) || fresh=""
+      fresh=$(tr::trim "$fresh")
+      if [[ $fresh == "$copied" ]]; then
+        printf '%s' "$copied"
+      fi
     fi
     return 0
   fi
